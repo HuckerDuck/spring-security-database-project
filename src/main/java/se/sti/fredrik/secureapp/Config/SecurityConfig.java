@@ -70,7 +70,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-            MyUserDetailsService userDetailsService,
+            MyUserDetailsService userDetailsService, //Kolla med håkan
             PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
