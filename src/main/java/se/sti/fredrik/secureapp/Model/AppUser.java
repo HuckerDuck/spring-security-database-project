@@ -5,6 +5,8 @@ package se.sti.fredrik.secureapp.Model;
 //? En role i String för att ange vilket role som denna användare ha
 //? En Boolean som är sann eller falsk när användaren ger samtycke längre fram.
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 public class AppUser {
     private String username;
@@ -45,5 +47,13 @@ public class AppUser {
 
     public void setGivenConsent(Boolean givenConsent) {
         this.givenConsent = givenConsent;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
