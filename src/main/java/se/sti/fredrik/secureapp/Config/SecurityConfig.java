@@ -1,4 +1,4 @@
-package se.sti.fredrik.secureapp.config;
+package se.sti.fredrik.secureapp.Config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

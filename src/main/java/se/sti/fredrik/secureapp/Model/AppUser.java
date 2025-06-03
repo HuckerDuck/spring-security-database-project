@@ -12,11 +12,7 @@ public class AppUser {
     private String role;
     private Boolean givenConsent;
 
-    public AppUser(String username, String password, String role, Boolean givenConcent) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.givenConsent = givenConcent;
+    public AppUser() {
     }
 
     public String getUsername() {
@@ -43,11 +39,11 @@ public class AppUser {
         this.role = role;
     }
 
-    public Boolean getGivenConcent() {
+    public Boolean getGivenConsent() {
         return givenConsent;
     }
 
-    public void setGivenConcent(Boolean givenConcent) {
-        this.givenConsent = givenConcent;
+    public void setGivenConsent(Boolean givenConsent) {
+        this.givenConsent = givenConsent;
     }
 }
