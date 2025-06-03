@@ -1,5 +1,7 @@
 package se.sti.fredrik.secureapp.controlller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,16 @@ public class UserAPIController {
         this.userService = userService;
     }
 
+    @Tag(name = "API Controller", description = "För hantering av användare")
     @PostMapping("/register")
+    @Operation  (summary = "Registrera en ny användare")
     public ResponseEntity<AppUser> register(@Valid @RequestBody AppUserDTO appUserDTO) {
         AppUser createdAppUser = userService.createAppUser(appUserDTO);
         return new ResponseEntity<>(createdAppUser, HttpStatus.CREATED);
     }
 
+    @Tag(name = "API Controller", description = "För hantering av användare")
+    @Operation  (summary = "Ta bort en användare")
     @DeleteMapping ("/{id}")
     public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
         userService.deleteAppUser(id);
