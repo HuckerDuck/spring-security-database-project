@@ -63,6 +63,7 @@ public class AppUser {
 
     public void setGivenConcent(Boolean givenConcent) {
         this.givenConsent = givenConcent;
+
     }
 
     public void setId(Long id) {
@@ -79,5 +80,7 @@ public class AppUser {
 
     public Long getId() {
         return id;
+=======
+
     }
 }
