@@ -15,13 +15,16 @@ public class ValidPasswordChecker implements ConstraintValidator<ValidPassword, 
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context){
+        //? Första kontrollen, stannar direkt om lösenordet är mindre än 8 tecken
         if (password == null || password.length() < 8 )
             return false;
 
+        //? En varsin räknare för varje typ
         int upperCaseCount = 0;
         int digitcount = 0;
         int specialCount = 0;
 
+        //? Denna for-loopen räknar och lägger till att
         for(char c : password.toCharArray()){
             if(Character.isUpperCase(c)){
                 upperCaseCount++;
@@ -34,6 +37,8 @@ public class ValidPasswordChecker implements ConstraintValidator<ValidPassword, 
             }
         }
 
+        //? Denna kommer endast att returnera ett värde om alla mina 3 krav är uppfyllda
+        //?  Stor Bokstav mer än 1,  Minst 2 siffor,    Minst 2 specialtecken
         return upperCaseCount >= 1 && digitcount >= 2 && specialCount >= 2;
     }
 }

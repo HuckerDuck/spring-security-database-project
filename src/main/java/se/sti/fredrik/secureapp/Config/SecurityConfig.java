@@ -96,18 +96,16 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/request-token").permitAll());
-
-        http.authorizeHttpRequests(auth ->
                 auth.requestMatchers(
+                        "/userController/register",
+                        "/request-token",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/v3/api-docs.yaml"
-                ).permitAll());
+                ).permitAll().anyRequest().authenticated());
 
-        http.authorizeHttpRequests(auth ->
-                auth.anyRequest().authenticated());
+
 
         http.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwt ->
