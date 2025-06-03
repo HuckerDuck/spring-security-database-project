@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Repository.AppUserRepository;
+import se.sti.fredrik.secureapp.exception.UserTestingException;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByUsername(username);
         if (appUser == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UserTestingException();
         }
 
         return new org.springframework.security.core.userdetails.User(
