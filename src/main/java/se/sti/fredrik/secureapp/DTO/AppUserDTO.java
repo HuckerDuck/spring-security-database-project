@@ -8,6 +8,7 @@ public class AppUserDTO {
     @NotBlank
     private String username;
 
+    @NotBlank
     @ValidPassword
     private String password;
 
