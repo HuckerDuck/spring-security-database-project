@@ -5,13 +5,21 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import se.sti.fredrik.secureapp.Model.LoginRequest;
+import se.sti.fredrik.secureapp.Service.TokenService;
 
 @RestController
 @RequestMapping("/request-token")
 public class AuthController {
     private AuthenticationManager authenticationManager;
-    private se.sti.fredrik.secureapp.service.TokenService tokenService;
-    public record LoginRequest(String username, String password) {}
+    private TokenService tokenService;
+
+    public AuthController(AuthenticationManager authenticationManager, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+    }
+
+
     @PostMapping
     public ResponseEntity<String> token(@RequestBody LoginRequest loginRequest) {
         Authentication auth = authenticationManager.authenticate(
