@@ -69,5 +69,6 @@ public class AppUser {
 
     public Long getId() {
         return id;
+
     }
 }
