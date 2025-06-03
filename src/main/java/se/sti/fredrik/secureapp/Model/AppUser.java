@@ -44,10 +44,10 @@ public class AppUser {
     }
 
     public Boolean getGivenConcent() {
-        return givenConcent;
+        return givenConsent;
     }
 
     public void setGivenConcent(Boolean givenConcent) {
-        this.givenConcent = givenConcent;
+        this.givenConsent = givenConcent;
     }
 }
