@@ -5,18 +5,32 @@ package se.sti.fredrik.secureapp.Model;
 //? En role i String för att ange vilket role som denna användare ha
 //? En Boolean som är sann eller falsk när användaren ger samtycke längre fram.
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.Id;
 
+@Entity
 public class AppUser {
+
+    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String username;
     private String password;
     private String role;
     private Boolean givenConsent;
 
-    public AppUser(String username, String password, String role, Boolean givenConcent) {
+    public AppUser() {
+    }
+
+    public AppUser(String username, String password, String role, Boolean givenConsent) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.givenConsent = givenConcent;
+        this.givenConsent = givenConsent;
     }
 
     public String getUsername() {
@@ -44,10 +58,26 @@ public class AppUser {
     }
 
     public Boolean getGivenConcent() {
-        return givenConcent;
+        return givenConsent;
     }
 
     public void setGivenConcent(Boolean givenConcent) {
-        this.givenConcent = givenConcent;
+        this.givenConsent = givenConcent;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getGivenConsent() {
+        return givenConsent;
+    }
+
+    public void setGivenConsent(Boolean givenConsent) {
+        this.givenConsent = givenConsent;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
