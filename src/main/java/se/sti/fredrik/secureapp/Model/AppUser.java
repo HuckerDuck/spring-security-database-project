@@ -8,12 +8,10 @@ package se.sti.fredrik.secureapp.Model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 @Entity
 public class AppUser {
-
-    @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,15 +55,6 @@ public class AppUser {
         this.role = role;
     }
 
-    public Boolean getGivenConcent() {
-        return givenConsent;
-    }
-
-    public void setGivenConcent(Boolean givenConcent) {
-        this.givenConsent = givenConcent;
-
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -80,7 +69,5 @@ public class AppUser {
 
     public Long getId() {
         return id;
-=======
-
     }
 }
