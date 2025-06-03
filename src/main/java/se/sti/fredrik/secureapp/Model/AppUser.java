@@ -6,15 +6,31 @@ package se.sti.fredrik.secureapp.Model;
 //? En Boolean som är sann eller falsk när användaren ger samtycke längre fram.
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.Id;
 
+@Entity
 public class AppUser {
+
+    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String username;
     private String password;
     private String role;
     private Boolean givenConsent;
 
     public AppUser() {
+    }
+
+    public AppUser(String username, String password, String role, Boolean givenConsent) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.givenConsent = givenConsent;
     }
 
     public String getUsername() {
@@ -41,6 +57,19 @@ public class AppUser {
         this.role = role;
     }
 
+    public Boolean getGivenConcent() {
+        return givenConsent;
+    }
+
+    public void setGivenConcent(Boolean givenConcent) {
+        this.givenConsent = givenConcent;
+
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Boolean getGivenConsent() {
         return givenConsent;
     }
@@ -49,11 +78,9 @@ public class AppUser {
         this.givenConsent = givenConsent;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+=======
+
     }
 }
