@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByUsername(username);
         if (appUser == null) {
-            throw new UserTestingException();
+            throw new UserTestingException("Användaren med id " + appUser.getId() + "hittades inte");
         }
 
         return new org.springframework.security.core.userdetails.User(
