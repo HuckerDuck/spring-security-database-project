@@ -26,8 +26,8 @@ public class TokenService {
         Instant now = Instant.now();
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
+                .map(role -> role.startsWith("ROLE_") ? role.substring(5) : role) // strip "ROLE_"
                 .collect(Collectors.joining(" "));
-
 
         JwtClaimsSet claims = JwtClaimsSet.builder().issuer("self").issuedAt(now).expiresAt(now.plus(1, ChronoUnit.HOURS)).claim("scope", scope).build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
