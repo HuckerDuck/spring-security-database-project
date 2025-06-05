@@ -1,0 +1,42 @@
+<configuration>
+                             <!--? Logga till en konsol-->
+
+    <!--? Appender som säger vart loggmeddelanden ska skickas -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--? Encoder som säger hur loggen ska utformas och formateras -->
+        <encoder>
+            <!--? Pattern styr och säger hur layouten på varje loggrad ska se ut  -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n</pattern>
+
+            <!--? d=datum, [%thread]=vilken tråd som skrev meddelandet, %-5level=vilken logg nivå den har %msg=vilket loggmeddelande som ska skickas  -->
+        </encoder>
+    </appender>
+
+    <!--? root= globala loggaren i Logback-->
+    <!--? fångar alla loggmeddelanden som inte fånas av en specifik typ av logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ROLLING" />
+    </root>
+
+    <!--? rooten över kommer inte att logga debug då det är nivå över INFO -->
+    <!--? Därför vill vi använda en specifik logger för att även samla in det från DEBUG-->
+    <!--? additivity=false gör att den inte loggar till root så att det inte blir dubbla loggrader från loggern-->
+    <logger name ="se.sti.fredrik.secureapp" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ROLLING" />
+    </logger>
+
+    <!--? RolligFileAppender = Skapar en ny loggfil varje dag, eller efter en viss filstorlek -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/secureapp.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/secureapp.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+</configuration>

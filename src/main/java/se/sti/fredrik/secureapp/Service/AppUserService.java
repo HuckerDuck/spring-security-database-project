@@ -1,31 +1,29 @@
 package se.sti.fredrik.secureapp.Service;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import se.sti.fredrik.secureapp.DTO.AppUserDTO;
+import se.sti.fredrik.secureapp.DTO.UserDTO;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Repository.AppUserRepository;
 import se.sti.fredrik.secureapp.component.LoggerComponent;
 import se.sti.fredrik.secureapp.exception.UserNotFoundException;
-import se.sti.fredrik.secureapp.exception.UserTestingException;
 
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final LoggerComponent loggerComponent;
 
-    public UserService(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder, LoggerComponent loggerComponent) {
+    public AppUserService(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder, LoggerComponent loggerComponent) {
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.loggerComponent = loggerComponent;
     }
 
     //? Metod för att skapa en ny användare
-    public AppUser createAppUser(AppUserDTO appUserDTO) {
+    public AppUser createAppUser(UserDTO appUserDTO) {
         //? Kolla om användaren redan finns:
         AppUser appUser = appUserRepository.findByUsername(appUserDTO.getUsername());
         if (appUser != null) {
@@ -57,6 +55,7 @@ public class UserService {
 
         Optional<AppUser> appUser = appUserRepository.findById(appUserId);
         if (appUser.isPresent()) {
+            loggerComponent.loggingDeletionofUser(appUser.get().getUsername());
             appUserRepository.delete(appUser.get());
         }
         else{

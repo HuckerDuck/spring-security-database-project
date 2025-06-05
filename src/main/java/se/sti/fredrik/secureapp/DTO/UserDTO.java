@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import se.sti.fredrik.secureapp.Validation.ValidPassword;
 
-public class AppUserDTO {
+public class UserDTO {
     @NotBlank
     private String username;
 
