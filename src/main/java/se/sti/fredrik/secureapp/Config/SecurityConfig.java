@@ -33,11 +33,31 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
+/**
+ * SecurityConfig is the central security configuration for the application.
+ *
+ * <p>This configuration sets up:</p>
+ * <ul>
+ *   <li>JSON Web Token authentication with RSA key pair (public/private)</li>
+ *   <li>Custom user authentication with {@link MyUserDetailsService}</li>
+ *   <li>Authorization using scopes via JWT</li>
+ *   <li>Role-based access to endpoints</li>
+ *   <li>Stateless session management</li>
+ * </ul>
+ *
+ * <p>Endpoints under <code>/admin/**</code> require ADMIN role,
+ * <code>/user/**</code> require USER or ADMIN. Swagger endpoints are publicly accessible for testing purposes.</p>
+ */
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
+    /**
+     * Generates an RSA key pair using for verifying JWT Tokens
+     * @return the generated RSA key pair
+     */
     @Bean
     public KeyPair keyPair() throws NoSuchAlgorithmException {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
@@ -45,6 +65,11 @@ public class SecurityConfig {
         return generator.generateKeyPair();
     }
 
+    /**
+     * Creates a JWK source from the generated RSA key pair
+     * @param keyPair the RSA key pair
+     * @return a JWK source based on the provided key pair
+     */
     @Bean
     public JWKSource<SecurityContext> jwkSource(KeyPair keyPair) {
         RSAKey rsaKey = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
@@ -55,21 +80,41 @@ public class SecurityConfig {
         return ((jwkSelector, securityContext) -> jwkSelector.select(jwkSet));
     }
 
+    /**
+     * Configures the JWT encoder using the JWK source
+     * @param jwkSource the source of JWK keys
+     * @return a NimbusJwtEncoder instance
+     */
     @Bean
     public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    /**
+     * Configures a JWT decoder using the RSA public key
+     * @param keyPair the RSA key pair
+     * @return a configured NimbusJwtDecoder
+     */
     @Bean
     public JwtDecoder jwtDecoder(KeyPair keyPair) {
         return NimbusJwtDecoder.withPublicKey((RSAPublicKey) keyPair.getPublic()).build();
     }
 
+    /**
+     * Instantiate a password encoder
+     * @return a BCryptPasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configures the authentication manager with custom user details service and password encoder
+     * @param userDetailsService the user details service
+     * @param passwordEncoder the password encoder
+     * @return a configured AuthenticationManager instance
+     */
     @Bean
     public AuthenticationManager authenticationManager(
             MyUserDetailsService userDetailsService, //Kolla med håkan
@@ -80,6 +125,10 @@ public class SecurityConfig {
         return new ProviderManager(provider);
     }
 
+    /**
+     * Configures how scopes are converted to authorities for roll-based access
+     * @return a JwtAuthenticationManager
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
@@ -91,8 +140,20 @@ public class SecurityConfig {
         return authenticationConverter;
     }
 
-    // Metod som implementerar roll-baserad åtkomst till end-points och --
-    // aktiverar en stateless session samt jwt
+    /**
+     * Configures HTTP security for the application.
+     * <p>Includes:</p>
+     * <ul>
+     *     <li>Disabling CSRF</li>
+     *     <li>Stateless session policy</li>
+     *     <li>Endpoint role-based access</li>
+     *     <li>Enabling JWT using resource server</li>
+     * </ul>
+     *
+     * @param http the HttpSecurity builder
+     * @return a configured SecurityFilterChain
+     * @throws Exception if configuration error occurs
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
