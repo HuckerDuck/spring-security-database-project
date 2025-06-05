@@ -36,7 +36,7 @@ public class AuthController {
 
             String token = tokenService.generateToken(auth);
             return ResponseEntity.ok(token);
-        }catch(UserTestingException e) {
+        } catch (UserTestingException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
