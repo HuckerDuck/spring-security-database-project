@@ -26,7 +26,6 @@ public class TokenService {
         Instant now = Instant.now();
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .map(role -> role.startsWith("ROLE_") ? role.substring(5) : role) // strip "ROLE_"
                 .collect(Collectors.joining(" "));
 
 

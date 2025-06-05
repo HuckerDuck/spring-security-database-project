@@ -1,5 +1,5 @@
 <configuration>
-                             <!--? Logga till en konsol-->
+    <!--? Logga till en konsol-->
 
     <!--? Appender som säger vart loggmeddelanden ska skickas -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -12,22 +12,7 @@
         </encoder>
     </appender>
 
-    <!--? root= globala loggaren i Logback-->
-    <!--? fångar alla loggmeddelanden som inte fånas av en specifik typ av logger -->
-    <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="ROLLING" />
-    </root>
-
-    <!--? rooten över kommer inte att logga debug då det är nivå över INFO -->
-    <!--? Därför vill vi använda en specifik logger för att även samla in det från DEBUG-->
-    <!--? additivity=false gör att den inte loggar till root så att det inte blir dubbla loggrader från loggern-->
-    <logger name ="se.sti.fredrik.secureapp" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="ROLLING" />
-    </logger>
-
-    <!--? RolligFileAppender = Skapar en ny loggfil varje dag, eller efter en viss filstorlek -->
+    <!--? RollingFileAppender = Skapar en ny loggfil varje dag, eller efter en viss filstorlek -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/secureapp.log</file>
         <encoder>
@@ -38,5 +23,20 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
+
+    <!--? root= globala logger i Logback-->
+    <!--? fångar alla loggmeddelanden som inte fånas av en specifik typ av logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLING"/>
+    </root>
+
+    <!--? rooten över kommer inte att logga debug då det är nivå över INFO -->
+    <!--? Därför vill vi använda en specifik logger för att även samla in det från DEBUG-->
+    <!--? additivity=false gör att den inte loggar till root så att det inte blir dubbla loggrader från loggern-->
+    <logger name="se.sti.fredrik.secureapp" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ROLLING"/>
+    </logger>
 
 </configuration>
