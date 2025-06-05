@@ -33,4 +33,8 @@ build/
 .vscode/
 
 # Ignorera lokala inställningar
-/src/main/resources/application.properties
+src/main/resources/application.properties
+
+# Loggfiler
+logs/
+*.log

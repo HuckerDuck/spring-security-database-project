@@ -104,6 +104,7 @@ public class SecurityConfig {
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(
                         "/userController/register",
+                        "/manage/user/register",
                         "/request-token",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
