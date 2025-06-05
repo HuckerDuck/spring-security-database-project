@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @Tag(name = "User Controller", description = "Användare")
+    @Tag(name = "User Controller", description = "För användaren")
     @GetMapping("/user")
     @ResponseBody
     public String getUser() {
