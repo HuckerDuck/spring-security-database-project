@@ -34,7 +34,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
 /**
- * SecurityConfig is the central security configuration for the application.
+ * {@code SecurityConfig} is the central security configuration for the application.
  *
  * <p>This configuration sets up:</p>
  * <ul>
@@ -48,7 +48,6 @@ import java.util.UUID;
  * <p>Endpoints under <code>/admin/**</code> require ADMIN role,
  * <code>/user/**</code> require USER or ADMIN. Swagger endpoints are publicly accessible for testing purposes.</p>
  */
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
