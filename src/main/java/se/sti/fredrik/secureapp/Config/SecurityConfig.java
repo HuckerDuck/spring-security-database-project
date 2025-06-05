@@ -89,14 +89,18 @@ public class SecurityConfig {
         return authenticationConverter;
     }
 
+    // Metod som implementerar roll-baserad åtkomst till end-points och --
+    // aktiverar en stateless session samt jwt
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.authorizeHttpRequests(auth ->
-                auth.requestMatchers(
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasRole("USER")
+                .requestMatchers(
                         "/userController/register",
                         "/request-token",
                         "/swagger-ui.html",
@@ -104,8 +108,6 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/v3/api-docs.yaml"
                 ).permitAll().anyRequest().authenticated());
-
-
 
         http.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwt ->
