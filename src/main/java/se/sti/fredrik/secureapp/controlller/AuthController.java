@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import se.sti.fredrik.secureapp.Model.LoginRequest;
 import se.sti.fredrik.secureapp.Service.TokenService;
-import se.sti.fredrik.secureapp.exception.UserTestingException;
 
 @RestController
 @RequestMapping("/request-token")

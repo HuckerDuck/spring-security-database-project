@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.sti.fredrik.secureapp.Model.User;
 import se.sti.fredrik.secureapp.Repository.UserRepository;
-import se.sti.fredrik.secureapp.exception.UserTestingException;
 
 import java.util.List;
 
