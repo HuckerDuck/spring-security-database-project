@@ -3,16 +3,16 @@ package se.sti.fredrik.secureapp.Config;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import se.sti.fredrik.secureapp.Model.AppUser;
-import se.sti.fredrik.secureapp.Repository.AppUserRepository;
+import se.sti.fredrik.secureapp.Model.User;
+import se.sti.fredrik.secureapp.Repository.UserRepository;
 
 @Component
 public class Bootstrap {
 
-    private final AppUserRepository appUserRepository;
+    private final UserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Bootstrap(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
+    public Bootstrap(UserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -31,7 +31,7 @@ public class Bootstrap {
         }
 
         if (appUserRepository.findByUsername("user") == null) {
-            AppUser user = new AppUser();
+            User user = new User();
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("password"));
             user.setRole("USER");

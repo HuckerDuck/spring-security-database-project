@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class AppUser {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,10 +21,10 @@ public class AppUser {
     private String role;
     private Boolean givenConsent;
 
-    public AppUser() {
+    public User() {
     }
 
-    public AppUser(String username, String password, String role, Boolean givenConsent) {
+    public User(String username, String password, String role, Boolean givenConsent) {
         this.username = username;
         this.password = password;
         this.role = role;

@@ -3,9 +3,7 @@ package se.sti.fredrik.secureapp.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import se.sti.fredrik.secureapp.DTO.AppUserDTO;
-import se.sti.fredrik.secureapp.Model.AppUser;
-import se.sti.fredrik.secureapp.Repository.AppUserRepository;
+import se.sti.fredrik.secureapp.Repository.UserRepository;
 
 //? Denna klass är tänkt att användas för att logga information.
 //? Loggningen kommer att ske vid inloggning och utloggning
@@ -13,9 +11,9 @@ import se.sti.fredrik.secureapp.Repository.AppUserRepository;
 @Component
 public class LoggerComponent {
     private final Logger logger = LoggerFactory.getLogger(LoggerComponent.class);
-    private final AppUserRepository appUserRepository;
+    private final UserRepository appUserRepository;
 
-    public LoggerComponent(AppUserRepository appUserRepository) {
+    public LoggerComponent(UserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
     }
 
