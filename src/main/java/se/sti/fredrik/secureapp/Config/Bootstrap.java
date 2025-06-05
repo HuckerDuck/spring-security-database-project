@@ -22,7 +22,7 @@ public class Bootstrap {
     @PostConstruct
     public void init() {
         if (appUserRepository.findByUsername("admin") == null) {
-            AppUser admin = new AppUser();
+            User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("password"));
             admin.setRole("ADMIN");

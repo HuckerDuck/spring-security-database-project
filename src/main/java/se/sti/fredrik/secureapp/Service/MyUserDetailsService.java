@@ -12,24 +12,24 @@ import java.util.List;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
-    private final UserRepository appUserRepository;
 
-    public MyUserDetailsService(UserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    private final UserRepository userRepository;
+
+    public MyUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User appUser = appUserRepository.findByUsername(username);
-        if (appUser == null) {
-            throw new UserTestingException("Användaren med id " + appUser.getId() + "hittades inte");
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
         }
 
         return new org.springframework.security.core.userdetails.User(
-                appUser.getUsername(),
-                appUser.getPassword(),
-                true, true, true, true,
-                List.of(new SimpleGrantedAuthority("ROLE_" + appUser.getRole()))
+                user.getUsername(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
         );
     }
 }

@@ -23,20 +23,14 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<String> token(@RequestBody LoginRequest loginRequest) {
-        try {
-
-
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.username(),
-                            loginRequest.password()
-                    )
-            );
-
-            String token = tokenService.generateToken(auth);
-            return ResponseEntity.ok(token);
-        } catch (UserTestingException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.username(),
+                        loginRequest.password()
+                )
+        );
+        String token = tokenService.generateToken(auth);
+        return ResponseEntity.ok(token);
     }
+
 }
