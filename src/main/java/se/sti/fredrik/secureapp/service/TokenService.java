@@ -29,7 +29,13 @@ public class TokenService {
                 .collect(Collectors.joining(" "));
 
 
-        JwtClaimsSet claims = JwtClaimsSet.builder().issuer("self").issuedAt(now).expiresAt(now.plus(1, ChronoUnit.HOURS)).claim("scope", scope).build();
+        JwtClaimsSet claims = JwtClaimsSet.
+                builder().
+                issuer("self").
+                issuedAt(now).
+                subject(authentication.getName()).
+                expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .claim("scope", scope).build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 }
