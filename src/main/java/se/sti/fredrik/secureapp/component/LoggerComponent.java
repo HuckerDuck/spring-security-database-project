@@ -5,9 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import se.sti.fredrik.secureapp.Repository.AppUserRepository;
 
-//? Denna klass är tänkt att användas för att logga information.
-//? Loggningen kommer att ske vid inloggning och utloggning
-
+/**
+ * {@code LoggerComponent} is a simple logging utility for logging for user-related actions such as
+ * registration, login and deletion
+ * <p>Logs to a .log to maintain consistent log output</p>
+ */
 @Component
 public class LoggerComponent {
     private final Logger logger = LoggerFactory.getLogger(LoggerComponent.class);
@@ -15,15 +17,20 @@ public class LoggerComponent {
     public LoggerComponent() {
     }
 
-    //? Skriver ut när en användare loggas in
+    /**
+     * Logs an informational message when a user logs in
+     * @param username the username of the user who logged in
+     */
     public void loggingForLogin(String username) {
-        logger.info("A user logged in " + username);
+        logger.info("A user logged in {}", username);
 
     }
 
-    //? Skriver ut när en användare tas bort
-    public void loggingDeletionofUser(String username) {
-        logger.info("A user was deleted: " + username);
+    /**
+     * Logs an informational message when a user is deleted
+     * @param username the username of the deleted user
+     */
+    public void loggingDeletionOfUser(String username) {
+        logger.info("A user was deleted: {}", username);
     }
-
 }

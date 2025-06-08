@@ -1,34 +1,39 @@
 package se.sti.fredrik.secureapp.Model;
 
-//? Skapar en användare som har Usernamn i String
-//? Password i String
-//? En role i String för att ange vilket role som denna användare ha
-//? En Boolean som är sann eller falsk när användaren ger samtycke längre fram.
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * Represents an application user with credentials
+ * <p>
+ * This {@code @Entity} is persisted in the database and includes fields for:
+ * * username, password, role, and a consent flag
+ * </p>
+ */
 @Entity
 public class AppUser {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String username;
     private String password;
     private String role;
     private Boolean givenConsent;
 
+    /**
+     * Empty constructor to allow Spring-boot to initialize:
+     * <ul>
+     *     <li>Unique identifier (primary key | Id)</li>
+     *     <li>Username</li>
+     *     <li>Encrypted user password</li>
+     *     <li>User role</li>
+     *     <li>Flag indicating whether user has granted consent</li>
+     * </ul>
+     */
     public AppUser() {
-    }
-
-    public AppUser(String username, String password, String role, Boolean givenConsent) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.givenConsent = givenConsent;
     }
 
     public String getUsername() {
