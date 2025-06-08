@@ -1,44 +1,55 @@
 package se.sti.fredrik.secureapp.Validation;
-//? Denna är tänkt att meddela användaren om lösenordet de har valt inte följer mallen.
-//? Alltså:
-//? 1 stor bokstav, 2 siffror, 2 specialtecken.
-//? Skickas sen för validation via DTO
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+/**
+ * Validator class for the {@link ValidPassword} annotation
+ * <p>This checks whether a given password follows the rules:</p>
+ * <ul>
+ *     <li>Minimum length of 8 characters</li>
+ *     <li>At least 1 uppercase letter</li>
+ *     <li>At least 2 special characters</li>
+ *     <li>At least 2 digits</li>
+ * </ul>
+ * @see ValidPassword
+ */
 public class ValidPasswordChecker implements ConstraintValidator<ValidPassword, String> {
 
     @Override
     public void initialize(ValidPassword constraintAnnotation) {
     }
 
+    /**
+     * Validates the password against the constraints
+     *
+     * @param password the password to validate
+     * @param context
+     * @return {@code true} if the password is valid, {@code false} otherwise
+     */
     @Override
-    public boolean isValid(String password, ConstraintValidatorContext context){
-        //? Första kontrollen, stannar direkt om lösenordet är mindre än 8 tecken
-        if (password == null || password.length() < 8 )
+    public boolean isValid(String password, ConstraintValidatorContext context) {
+
+        // Check for 8 characters
+        if (password == null || password.length() < 8)
             return false;
 
-        //? En varsin räknare för varje typ
+        // Counts for all criteria
         int upperCaseCount = 0;
         int digitcount = 0;
         int specialCount = 0;
 
-        //? Denna for-loopen räknar och lägger till att
-        for(char c : password.toCharArray()){
-            if(Character.isUpperCase(c)){
+        //? For-loop to verify entire String against counts
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
                 upperCaseCount++;
-            }
-            else if(Character.isDigit(c)){
+            } else if (Character.isDigit(c)) {
                 digitcount++;
-            }
-            else if (!Character.isLetterOrDigit(c)) {
-            specialCount++;
+            } else if (!Character.isLetterOrDigit(c)) {
+                specialCount++;
             }
         }
 
-        //? Denna kommer endast att returnera ett värde om alla mina 3 krav är uppfyllda
-        //?  Stor Bokstav mer än 1,  Minst 2 siffor,    Minst 2 specialtecken
         return upperCaseCount >= 1 && digitcount >= 2 && specialCount >= 2;
     }
 }

@@ -6,6 +6,13 @@ import org.springframework.stereotype.Component;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Repository.AppUserRepository;
 
+/**
+ * {@code Bootstrap} is a Spring {@link org.springframework.stereotype.Component} that initializes
+ * the application with default users for testing purposes
+ * <p>
+ * It uses {@link jakarta.annotation.PostConstruct} to automatically create an "admin" and a "user"
+ * account after the application context is initialized, if they do not already exist
+ */
 @Component
 public class Bootstrap {
 
@@ -17,8 +24,10 @@ public class Bootstrap {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Metod för att snabbt kunna konstruera två users [admin | user] --
-    // för att kunna testa funktioner och hantera första inloggningen
+    /**
+     * <p>Initializes default users ("admin" | "user") with pre-defined credentials if not already present in the database</p>
+     * <p>This runs automatically after Spring completes dependency injection</p>
+     */
     @PostConstruct
     public void init() {
         if (appUserRepository.findByUsername("admin") == null) {

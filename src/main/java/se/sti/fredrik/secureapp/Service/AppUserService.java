@@ -55,7 +55,7 @@ public class AppUserService {
 
         Optional<AppUser> appUser = appUserRepository.findById(appUserId);
         if (appUser.isPresent()) {
-            loggerComponent.loggingDeletionofUser(appUser.get().getUsername());
+            loggerComponent.loggingDeletionOfUser(appUser.get().getUsername());
             appUserRepository.delete(appUser.get());
         }
         else{
