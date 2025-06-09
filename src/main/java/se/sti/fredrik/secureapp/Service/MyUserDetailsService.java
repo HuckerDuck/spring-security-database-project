@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Repository.AppUserRepository;
-import se.sti.fredrik.secureapp.exception.UserTestingException;
+
 
 import java.util.List;
 
@@ -33,16 +33,15 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository.findByUsername(username);
-        if (appUser == null) {
-            throw new UserTestingException("Användaren hittades inte");
+        AppUser user = appUserRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
         }
 
         return new org.springframework.security.core.userdetails.User(
-                appUser.getUsername(),
-                appUser.getPassword(),
-                true, true, true, true,
-                List.of(new SimpleGrantedAuthority("ROLE_" + appUser.getRole()))
+                user.getUsername(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
         );
     }
 }
