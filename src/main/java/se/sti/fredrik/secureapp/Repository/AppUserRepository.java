@@ -21,4 +21,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
      * @return the {@link AppUser} with the specified username
      */
     AppUser findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }
