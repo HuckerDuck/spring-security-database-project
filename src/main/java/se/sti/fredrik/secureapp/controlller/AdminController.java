@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import se.sti.fredrik.secureapp.Config.RoutePaths;
 import se.sti.fredrik.secureapp.DTO.AppUserDTO;
+import se.sti.fredrik.secureapp.DTO.SetUserRoleDTO;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Service.AppUserService;
 
@@ -49,5 +50,11 @@ public class AdminController {
         String roles = jwt.getClaimAsString("scope");
 
         return "Välkommen admin " + username + "! Du har roller: " + roles;
+    }
+    @PutMapping("/setrole")
+    @Operation(summary = "Sätt en ny roll för en användare")
+    public ResponseEntity<AppUser> setUserRole(@RequestBody @Valid SetUserRoleDTO dto) {
+        AppUser updatedUser = userService.setRole(dto.getId(), dto.getRole());
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }

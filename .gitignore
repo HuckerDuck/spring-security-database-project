@@ -40,6 +40,6 @@ src/main/resources/application.properties
 logs/
 *.log
 =======
-/src/main/resources/application.properties
-/logs/
+``/src/main/resources/application.properties
+``/logs/
 >>>>>>> refactor/main
