@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import se.sti.fredrik.secureapp.Validation.ValidPassword;
 
-public class UserDTO {
+public class AppUserDTO {
     @NotBlank
     private String username;
 
@@ -16,7 +16,7 @@ public class UserDTO {
     private String role;
 
     @NotNull
-    private Boolean GivenConsent;
+    private Boolean givenConsent;
 
     //?                         Getter & Setter
 
@@ -26,6 +26,7 @@ public class UserDTO {
     public void setPassword(String password) {this.password = password;}
     public String getRole() {return role;}
     public void setRole(String role) {this.role = role;}
-    public Boolean getGivenConsent() {return GivenConsent;}
-    public void setGivenConsent(Boolean givenConsent) {GivenConsent = givenConsent;}
+    public Boolean getGivenConsent() {return givenConsent;}
+    public void setGivenConsent(Boolean givenConsent) {
+        this.givenConsent = givenConsent;}
 }
