@@ -1,7 +1,4 @@
 package se.sti.fredrik.secureapp.Service;
-
-
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.sti.fredrik.secureapp.DTO.AppUserDTO;
@@ -51,7 +48,7 @@ public class AppUserService {
         newAppUser.setGivenConsent(dto.getGivenConsent());
 
         AppUser savedAppUser = userRepository.save(newAppUser);
-        logger.loggingForLogin(savedAppUser.getUsername());
+        logger.loggAddedUser(savedAppUser.getUsername());
 
         return savedAppUser;
     }

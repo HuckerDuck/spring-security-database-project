@@ -16,19 +16,19 @@ import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Service.AppUserService;
 
 @RestController
-@RequestMapping(RoutePaths.ADMIN_BASE)
+@RequestMapping("/admin")
 public class AdminController {
-    private final AppUserService userService;
+    private final AppUserService appUserService;
 
-    public AdminController(AppUserService userService) {
-        this.userService = userService;
+    public AdminController(AppUserService appUserService) {
+        this.appUserService = appUserService;
     }
 
     @Tag(name = "Admin Controller", description = "För hantering av användare")
     @PostMapping("/register")
     @Operation  (summary = "Registrera en ny användare")
     public ResponseEntity<AppUser> register(@Valid @RequestBody AppUserDTO appUserDTO) {
-        AppUser createdAppUser = userService.createUser(appUserDTO);
+        AppUser createdAppUser = appUserService.createUser(appUserDTO);
         return new ResponseEntity<>(createdAppUser, HttpStatus.CREATED);
     }
 
@@ -36,7 +36,7 @@ public class AdminController {
     @Operation  (summary = "Ta bort en användare")
     @DeleteMapping ("/delete/{id}")
     public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+        appUserService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

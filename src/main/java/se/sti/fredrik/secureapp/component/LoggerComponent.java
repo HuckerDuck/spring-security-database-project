@@ -22,8 +22,7 @@ public class LoggerComponent {
      * @param username the username of the user who logged in
      */
     public void loggingForLogin(String username) {
-        logger.info("A user logged in {}", username);
-
+        logger.warn("A user logged in {}", username);
     }
 
     /**
@@ -31,6 +30,15 @@ public class LoggerComponent {
      * @param username the username of the deleted user
      */
     public void loggingDeletionOfUser(String username) {
-        logger.info("A user was deleted: {}", username);
+        logger.warn("A user was deleted: {}", username);
+    }
+
+    public void loggingForLogout(String username) {
+        logger.warn("A user logged out: {}", username);
+    }
+
+    public void loggAddedUser(String username) {
+        logger.warn("A user was added with username: " + username);
+
     }
 }
