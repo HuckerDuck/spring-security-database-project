@@ -29,9 +29,7 @@
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-
     </root>
-
 
 
     <!--? rooten över kommer inte att logga debug då det är nivå över INFO -->

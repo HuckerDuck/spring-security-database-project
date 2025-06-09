@@ -51,10 +51,11 @@ public class AdminController {
 
         return "Välkommen admin " + username + "! Du har roller: " + roles;
     }
+
     @PutMapping("/setrole")
     @Operation(summary = "Sätt en ny roll för en användare")
     public ResponseEntity<AppUser> setUserRole(@RequestBody @Valid SetUserRoleDTO dto) {
-        AppUser updatedUser = userService.setRole(dto.getId(), dto.getRole());
+        AppUser updatedUser = appUserService.setRole(dto.getId(), dto.getRole());
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }
