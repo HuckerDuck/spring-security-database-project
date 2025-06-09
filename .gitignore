@@ -34,3 +34,4 @@ build/
 
 # Ignorera lokala inställningar
 /src/main/resources/application.properties
+/logs/

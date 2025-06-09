@@ -11,10 +11,10 @@ import se.sti.fredrik.secureapp.Model.LoginRequest;
 import se.sti.fredrik.secureapp.Service.TokenService;
 
 @RestController
-@RequestMapping(RoutePaths.AUTH_BASE + "/request-token")
+@RequestMapping(RoutePaths.AUTH_BASE)
 public class AuthController {
-    private AuthenticationManager authenticationManager;
-    private TokenService tokenService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     public AuthController(AuthenticationManager authenticationManager, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
@@ -22,7 +22,7 @@ public class AuthController {
     }
 
 
-    @PostMapping
+    @PostMapping("/request-token")
     public ResponseEntity<String> token(@RequestBody LoginRequest loginRequest) {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
