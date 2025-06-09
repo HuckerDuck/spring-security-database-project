@@ -8,9 +8,12 @@ import se.sti.fredrik.secureapp.DTO.AppUserDTO;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Repository.AppUserRepository;
 import se.sti.fredrik.secureapp.component.LoggerComponent;
+import se.sti.fredrik.secureapp.exception.AdminDemoteNotAllowedException;
+import se.sti.fredrik.secureapp.exception.RoleAlreadyAssignedException;
 import se.sti.fredrik.secureapp.exception.UserNotFoundException;
 import se.sti.fredrik.secureapp.exception.UsernameAlreadyExistsException;
 
+import javax.management.relation.RoleNotFoundException;
 import java.util.Optional;
 //**
 //* Serviceklass för att hantera AppUser-entitet
@@ -70,4 +73,34 @@ public class AppUserService {
         userRepository.delete(user);
         logger.loggingForLogin("Deleted user: " + id);
     }
+
+
+
+    /**
+     * Sätter en ny roll för en användare med angivet ID.
+     *
+     * @param id       Användarens ID
+     * @param newRole  Ny roll (t.ex. "USER", "ADMIN")
+     * @return Uppdaterad användare
+     *
+     * @throws UserNotFoundException           Om användaren inte hittas
+     * @throws RoleAlreadyAssignedException    Om användaren redan har rollen
+     * @throws AdminDemoteNotAllowedException  Om en admin försöker nedgraderas till user
+     */
+    public AppUser setRole(Long id, String newRole) {
+        AppUser user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        if (user.getRole().equals(newRole)) {
+            throw new RoleAlreadyAssignedException(newRole);
+        }
+
+        if (user.getRole().equals("ADMIN") && newRole.equals("User")) {
+            throw new AdminDemoteNotAllowedException();
+        }
+
+        user.setRole(newRole);
+        return userRepository.save(user);
+    }
+
 }
