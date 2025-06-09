@@ -26,7 +26,7 @@ public class AdminController {
     @PostMapping("/admin/register")
     @Operation  (summary = "Registrera en ny användare")
     public ResponseEntity<AppUser> register(@Valid @RequestBody AppUserDTO appUserDTO) {
-        AppUser createdAppUser = userService.createAppUser(appUserDTO);
+        AppUser createdAppUser = userService.createUser(appUserDTO);
         return new ResponseEntity<>(createdAppUser, HttpStatus.CREATED);
     }
 
@@ -34,7 +34,7 @@ public class AdminController {
     @Operation  (summary = "Ta bort en användare")
     @DeleteMapping ("/admin/delete/{id}")
     public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
-        userService.deleteAppUser(id);
+        userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
