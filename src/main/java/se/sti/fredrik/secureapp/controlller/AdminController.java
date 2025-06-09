@@ -10,11 +10,13 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import se.sti.fredrik.secureapp.Config.RoutePaths;
 import se.sti.fredrik.secureapp.DTO.AppUserDTO;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Service.AppUserService;
 
 @RestController
+@RequestMapping(RoutePaths.ADMIN_BASE)
 public class AdminController {
     private final AppUserService userService;
 
@@ -23,7 +25,7 @@ public class AdminController {
     }
 
     @Tag(name = "Admin Controller", description = "För hantering av användare")
-    @PostMapping("/admin/register")
+    @PostMapping("/register")
     @Operation  (summary = "Registrera en ny användare")
     public ResponseEntity<AppUser> register(@Valid @RequestBody AppUserDTO appUserDTO) {
         AppUser createdAppUser = userService.createUser(appUserDTO);
@@ -32,14 +34,14 @@ public class AdminController {
 
     @Tag(name = "Admin Controller", description = "För hantering av användare")
     @Operation  (summary = "Ta bort en användare")
-    @DeleteMapping ("/admin/delete/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Tag(name = "Admin Controller", description = "För admin översikt")
-    @GetMapping("/admin")
+    @GetMapping()
     @ResponseBody
     public String getAdminInfo(Authentication authentication) {
         Jwt jwt = ((JwtAuthenticationToken) authentication).getToken();
