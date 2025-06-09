@@ -6,11 +6,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import se.sti.fredrik.secureapp.Config.RoutePaths;
 import se.sti.fredrik.secureapp.Model.LoginRequest;
 import se.sti.fredrik.secureapp.Service.TokenService;
 
 @RestController
-@RequestMapping("/request-token")
+@RequestMapping(RoutePaths.AUTH_BASE + "/request-token")
 public class AuthController {
     private AuthenticationManager authenticationManager;
     private TokenService tokenService;

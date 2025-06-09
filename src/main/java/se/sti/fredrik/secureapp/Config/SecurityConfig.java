@@ -139,8 +139,8 @@ public class SecurityConfig {
                         })
         );
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/manage/**").hasRole("ADMIN")
-                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(RoutePaths.ADMIN_BASE + "/**").hasRole("ADMIN")
+                .requestMatchers(RoutePaths.USER_BASE).hasAnyRole("USER", "ADMIN")
                 .requestMatchers(
                         "/userController/register",
                         "/request-token",

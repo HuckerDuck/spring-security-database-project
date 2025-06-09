@@ -9,16 +9,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import se.sti.fredrik.secureapp.Config.RoutePaths;
 import se.sti.fredrik.secureapp.DTO.UserDTO;
 import se.sti.fredrik.secureapp.Model.User;
-import se.sti.fredrik.secureapp.Service.UserService;
+import se.sti.fredrik.secureapp.Service.AppUserService;
 
 @RestController
-@RequestMapping("/manage/")
+@RequestMapping(RoutePaths.ADMIN_BASE)
 public class AdminController {
-    private final UserService userService;
+    private final AppUserService userService;
 
-    public AdminController(UserService userService) {
+    public AdminController(AppUserService userService) {
         this.userService = userService;
     }
 
@@ -39,7 +40,7 @@ public class AdminController {
     }
 
     @Tag(name = "Admin Controller", description = "För admin översikt")
-    @GetMapping("/admin")
+    @GetMapping("")
     @ResponseBody
     public String getAdminInfo(Authentication authentication) {
         Jwt jwt = ((JwtAuthenticationToken) authentication).getToken();

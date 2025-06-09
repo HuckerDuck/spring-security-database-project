@@ -9,15 +9,13 @@ import se.sti.fredrik.secureapp.component.LoggerComponent;
 import se.sti.fredrik.secureapp.exception.UserNotFoundException;
 import se.sti.fredrik.secureapp.exception.UsernameAlreadyExistsException;
 
-import java.util.Optional;
-
 @Service
-public class UserService {
+public class AppUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final LoggerComponent logger;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, LoggerComponent logger) {
+    public AppUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, LoggerComponent logger) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.logger = logger;
