@@ -14,12 +14,12 @@
 
     <!--? RollingFileAppender = Skapar en ny loggfil varje dag, eller efter en viss filstorlek -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/secureapp.log</file>
+        <file>logs/secure.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/secureapp.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/secure.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
