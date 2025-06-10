@@ -2,6 +2,7 @@ package se.sti.fredrik.secureapp.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -75,5 +76,11 @@ public class GlobalExceptionHandler {
                 "error", status.getReasonPhrase(),
                 "message", message
         ));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Map<String, String>> handleBadCredentials(BadCredentialsException ex) {
+        Map<String, String> response = Map.of("error", "Unauthorized: Invalid username or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 }

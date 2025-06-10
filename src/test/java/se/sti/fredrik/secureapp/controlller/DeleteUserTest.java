@@ -1,6 +1,5 @@
 package se.sti.fredrik.secureapp.controlller;
 
-import jakarta.persistence.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application-test.properties")
 
 @AutoConfigureMockMvc
-public class deleteUserTest {
+public class DeleteUserTest {
 
     @Autowired
     private MockMvc mockMvc;
