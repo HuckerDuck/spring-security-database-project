@@ -47,7 +47,7 @@ public class AppUserService {
         AppUser newAppUser = new AppUser();
         newAppUser.setUsername(dto.getUsername());
         newAppUser.setPassword(passwordEncoder.encode(dto.getPassword()));
-        newAppUser.setRole(dto.getRole());
+        newAppUser.setRole(dto.getRole().toUpperCase());
         newAppUser.setGivenConsent(dto.getGivenConsent());
 
         AppUser savedAppUser = userRepository.save(newAppUser);
