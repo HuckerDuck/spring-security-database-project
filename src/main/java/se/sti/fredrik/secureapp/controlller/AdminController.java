@@ -9,36 +9,40 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-import se.sti.fredrik.secureapp.DTO.UserDTO;
+
+import se.sti.fredrik.secureapp.Config.RoutePaths;
+import se.sti.fredrik.secureapp.DTO.AppUserDTO;
+import se.sti.fredrik.secureapp.DTO.SetUserRoleDTO;
 import se.sti.fredrik.secureapp.Model.AppUser;
 import se.sti.fredrik.secureapp.Service.AppUserService;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
-    private final AppUserService userService;
+    private final AppUserService appUserService;
 
-    public AdminController(AppUserService userService) {
-        this.userService = userService;
+    public AdminController(AppUserService appUserService) {
+        this.appUserService = appUserService;
     }
 
     @Tag(name = "Admin Controller", description = "För hantering av användare")
-    @PostMapping("/admin/register")
+    @PostMapping("/register")
     @Operation  (summary = "Registrera en ny användare")
-    public ResponseEntity<AppUser> register(@Valid @RequestBody UserDTO appUserDTO) {
-        AppUser createdAppUser = userService.createAppUser(appUserDTO);
+    public ResponseEntity<AppUser> register(@Valid @RequestBody AppUserDTO appUserDTO) {
+        AppUser createdAppUser = appUserService.createUser(appUserDTO);
         return new ResponseEntity<>(createdAppUser, HttpStatus.CREATED);
     }
 
     @Tag(name = "Admin Controller", description = "För hantering av användare")
     @Operation  (summary = "Ta bort en användare")
-    @DeleteMapping ("/admin/delete/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<AppUser> deleteUser(@PathVariable Long id) {
-        userService.deleteAppUser(id);
+        appUserService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Tag(name = "Admin Controller", description = "För admin översikt")
-    @GetMapping("/admin")
+    @GetMapping()
     @ResponseBody
     public String getAdminInfo(Authentication authentication) {
         Jwt jwt = ((JwtAuthenticationToken) authentication).getToken();
@@ -46,5 +50,13 @@ public class AdminController {
         String roles = jwt.getClaimAsString("scope");
 
         return "Välkommen admin " + username + "! Du har roller: " + roles;
+    }
+
+    @Tag(name = "Admin Controller", description = "För admin översikt")
+    @PutMapping("/setrole")
+    @Operation(summary = "Sätt en ny roll för en användare")
+    public ResponseEntity<AppUser> setUserRole(@RequestBody @Valid SetUserRoleDTO dto) {
+        AppUser updatedUser = appUserService.setRole(dto.getId(), dto.getRole());
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }

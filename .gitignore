@@ -33,8 +33,13 @@ build/
 .vscode/
 
 # Ignorera lokala inställningar
+<<<<<<< HEAD
 src/main/resources/application.properties
 
 # Loggfiler
 logs/
 *.log
+=======
+``/src/main/resources/application.properties
+``/logs/
+>>>>>>> refactor/main

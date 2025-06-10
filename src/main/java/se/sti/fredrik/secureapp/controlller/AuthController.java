@@ -7,12 +7,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import se.sti.fredrik.secureapp.Config.RoutePaths;
 import se.sti.fredrik.secureapp.Model.LoginRequest;
 import se.sti.fredrik.secureapp.Service.TokenService;
-import se.sti.fredrik.secureapp.exception.UserTestingException;
 
 @RestController
-@RequestMapping("/request-token")
+@RequestMapping(RoutePaths.AUTH_BASE)
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
@@ -23,22 +23,16 @@ public class AuthController {
     }
 
     @Tag(name = "Auth Controller", description = "Authentisering och hantering av inloggning")
-    @PostMapping
+    @PostMapping("/request-token")
     public ResponseEntity<String> token(@RequestBody LoginRequest loginRequest) {
-        try {
-
-
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.username(),
-                            loginRequest.password()
-                    )
-            );
-
-            String token = tokenService.generateToken(auth);
-            return ResponseEntity.ok(token);
-        } catch (UserTestingException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.username(),
+                        loginRequest.password()
+                )
+        );
+        String token = tokenService.generateToken(auth);
+        return ResponseEntity.ok(token);
     }
+
 }
