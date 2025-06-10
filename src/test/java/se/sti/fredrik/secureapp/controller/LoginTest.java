@@ -1,4 +1,4 @@
-package se.sti.fredrik.secureapp.controlller;
+package se.sti.fredrik.secureapp.controller;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;

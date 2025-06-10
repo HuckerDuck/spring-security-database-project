@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.authentication.BadCredentialsException;
-=======
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -27,6 +26,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Hanterar undantag för när validering misslyckas
+     *
      * @param ex undantaget som kastas vid misslyckanden
      * @return en ResponseEntity mappat med ett message och validation error med HTTP Status 400
      */
@@ -101,6 +101,11 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    /**
+     * Hanterar undantag vid fel username eller password
+     * @param ex undantaget som kastas vid fel credentials
+     * @return en ResponseEntity med message ("Unauthorized: Invalid username or password") HTTP 401
+     */
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Map<String, String>> handleBadCredentials(BadCredentialsException ex) {
         Map<String, String> response = Map.of("error", "Unauthorized: Invalid username or password");

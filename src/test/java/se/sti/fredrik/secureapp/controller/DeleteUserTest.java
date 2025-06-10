@@ -1,4 +1,4 @@
-package se.sti.fredrik.secureapp.controlller;
+package se.sti.fredrik.secureapp.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

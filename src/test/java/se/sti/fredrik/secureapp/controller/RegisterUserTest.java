@@ -1,4 +1,4 @@
-package se.sti.fredrik.secureapp.controlller;
+package se.sti.fredrik.secureapp.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
