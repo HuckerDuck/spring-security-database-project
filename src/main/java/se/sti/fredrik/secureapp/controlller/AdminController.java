@@ -52,6 +52,7 @@ public class AdminController {
         return "Välkommen admin " + username + "! Du har roller: " + roles;
     }
 
+    @Tag(name = "Admin Controller", description = "För admin översikt")
     @PutMapping("/setrole")
     @Operation(summary = "Sätt en ny roll för en användare")
     public ResponseEntity<AppUser> setUserRole(@RequestBody @Valid SetUserRoleDTO dto) {
