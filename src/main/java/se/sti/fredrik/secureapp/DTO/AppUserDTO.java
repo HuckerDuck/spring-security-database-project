@@ -3,6 +3,7 @@ package se.sti.fredrik.secureapp.DTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import se.sti.fredrik.secureapp.Validation.ValidPassword;
+import se.sti.fredrik.secureapp.Validation.ValidRole;
 
 public class AppUserDTO {
     @NotBlank
@@ -13,6 +14,7 @@ public class AppUserDTO {
     private String password;
 
     @NotBlank
+    @ValidRole
     private String role;
 
     @NotNull

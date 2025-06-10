@@ -2,10 +2,13 @@ package se.sti.fredrik.secureapp.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +20,24 @@ import java.util.Map;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * Hanterar undantag för när validering misslyckas
+     * @param ex undantaget som kastas vid misslyckanden
+     * @return en ResponseEntity mappat med ett message och validation error med HTTP Status 400
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        FieldError fieldError = ex.getBindingResult().getFieldError();
+        if (fieldError != null) {
+            errors.put("message", fieldError.getDefaultMessage());
+        } else {
+            errors.put("message", "Validation failed");
+        }
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
 
     /**
      * Hanterar undantag när användaren inte hittas i databasen.
@@ -50,7 +71,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleInvalidRole(InvalidRoleException ex) {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
-
 
 
     /**
