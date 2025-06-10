@@ -18,6 +18,7 @@ import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
 @SpringBootTest
@@ -47,12 +48,7 @@ public class LoginTest {
 
     @Test
     void JwtTokenOnSuccessfulLogin() throws Exception {
-        String login = """
-                {
-                    "username": "test",
-                    "password": "Password123--"
-                }
-                """;
+        String login = TestLoginHelper.buildLoginJson("test", "Password123--");
 
         mockMvc.perform(post("/auth/request-token")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -63,16 +59,26 @@ public class LoginTest {
 
     @Test
     void UnauthorizedOnWrongCredentials() throws Exception {
-        String login = """
-                {
-                    "username": "test",
-                    "password": "wrongPassword123--"
-                }
-                """;
+        String login = TestLoginHelper.buildLoginJson("test", "wrongPassword123--");
 
         mockMvc.perform(post("/auth/request-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(login))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void tokenAccessTest() throws Exception {
+        String token = TestLoginHelper.obtainAccessToken("test", "Password123--", mockMvc);
+
+        mockMvc.perform(get("/admin")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void forbiddenAccessWithoutToken() throws Exception {
+        mockMvc.perform(get("/admin"))
                 .andExpect(status().isUnauthorized());
     }
 }
