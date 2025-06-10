@@ -26,7 +26,6 @@ public class GlobalExceptionHandler {
 
     /**
      * Hanterar undantag för när validering misslyckas
-     *
      * @param ex undantaget som kastas vid misslyckanden
      * @return en ResponseEntity mappat med ett message och validation error med HTTP Status 400
      */
