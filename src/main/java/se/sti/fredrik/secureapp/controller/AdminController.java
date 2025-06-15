@@ -1,4 +1,4 @@
-package se.sti.fredrik.secureapp.controlller;
+package se.sti.fredrik.secureapp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,7 +10,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import se.sti.fredrik.secureapp.Config.RoutePaths;
 import se.sti.fredrik.secureapp.DTO.AppUserDTO;
 import se.sti.fredrik.secureapp.DTO.SetUserRoleDTO;
 import se.sti.fredrik.secureapp.Model.AppUser;
