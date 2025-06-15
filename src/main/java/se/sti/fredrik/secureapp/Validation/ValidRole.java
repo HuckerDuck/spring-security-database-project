@@ -11,6 +11,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.PARAMETER;
 
+/**
+ * Custom annotation used to validate roles
+ * <p>This annotation can be applied to parameters and is processed by {@link ValidRoleChecker}</p>
+ * @see ValidRoleChecker
+ */
 @Documented
 @Constraint(validatedBy = ValidRoleChecker.class)
 @Target({FIELD, PARAMETER})

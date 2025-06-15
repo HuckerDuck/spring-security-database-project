@@ -1,4 +1,5 @@
 package se.sti.fredrik.secureapp.Service;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.sti.fredrik.secureapp.DTO.AppUserDTO;
@@ -12,11 +13,12 @@ import se.sti.fredrik.secureapp.exception.UsernameAlreadyExistsException;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.Optional;
-//**
-//* Serviceklass för att hantera AppUser-entitet
-//* Denna ServiceKlass används för att skapa och ta bort användare
-//* Sen sker Logging via en LoggingComponent
-//*
+
+/**
+ * Serviceklass för att hantera AppUser-entitet
+ * Denna ServiceKlass används för att skapa och ta bort användare
+ * Sen sker Logging via en LoggingComponent
+ */
 @Service
 public class AppUserService {
     private final AppUserRepository userRepository;
@@ -30,12 +32,10 @@ public class AppUserService {
     }
 
     /**
-     *
      * @param dto vilket är ett dataöverföringsobjekt
-     *                    kräver användare, lösenord och ett samtycke
-     *
+     *            kräver användare, lösenord och ett samtycke
      * @return returnerar den skapade användaren med ett eget id
-     * @throws RuntimeException Kastar RuntimeException om användaren redan finns i databasen
+     * @throws RuntimeException         Kastar RuntimeException om användaren redan finns i databasen
      * @throws IllegalArgumentException Kastar IllegalArgumentException om samtycke ej är inlagt
      * @implNote Använder sedan LoggerComponent för att logga händelsen till en fil
      */
@@ -57,11 +57,9 @@ public class AppUserService {
     }
 
     /**
-     *
      * @param id använder appUserID:t för att hitta användaren i databasen
-     *                  Tar bort den om den hittar det
+     *           Tar bort den om den hittar det
      * @throws UserNotFoundException kastar UserNotFoundException om den inte hittar användaren i systemet
-     *
      */
     public void deleteUser(Long id) {
         AppUser user = userRepository.findById(id)
@@ -72,17 +70,15 @@ public class AppUserService {
     }
 
 
-
     /**
      * Sätter en ny roll för en användare med angivet ID.
      *
-     * @param id       Användarens ID
-     * @param newRole  Ny roll (t.ex. "USER", "ADMIN")
+     * @param id      Användarens ID
+     * @param newRole Ny roll (t.ex. "USER", "ADMIN")
      * @return Uppdaterad användare
-     *
-     * @throws UserNotFoundException           Om användaren inte hittas
-     * @throws RoleAlreadyAssignedException    Om användaren redan har rollen
-     * @throws AdminDemoteNotAllowedException  Om en admin försöker nedgraderas till user
+     * @throws UserNotFoundException          Om användaren inte hittas
+     * @throws RoleAlreadyAssignedException   Om användaren redan har rollen
+     * @throws AdminDemoteNotAllowedException Om en admin försöker nedgraderas till user
      */
     public AppUser setRole(Long id, String newRole) {
         AppUser user = userRepository.findById(id)
