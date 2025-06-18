@@ -21,15 +21,14 @@ is used with my MySQL database hosted in AWS.
 
 ## Tech-Stack 
                     
-|-------------|---------------------------|
-                                          | 
- Backend       Spring Boot (Java 17+)     |
- Security      Spring Security + JWT      |
- Database       MySQL (AWS RDS)           |
- Building Tool   Maven                    |
- API-doc     Swagger (springdoc-openapi)  | 
- Testing      JUnit, MockMvc              | 
-                                          | 
- |-------------|--------------------------|
+
+ Backend       Spring Boot (Java 17+)     
+ Security      Spring Security + JWT      
+ Database       MySQL (AWS RDS)           
+ Building Tool   Maven                    
+ API-doc     Swagger (springdoc-openapi)   
+ Testing      JUnit, MockMvc               
+                                           
+
 
  
