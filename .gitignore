@@ -1,10 +1,14 @@
+# Maven och byggkataloger
 HELP.md
 target/
+build/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
+# Eclipse/STS-specifika filer
 .apt_generated
 .classpath
 .factorypath
@@ -13,33 +17,21 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
 
-# Ignorera lokala inställningar
-<<<<<<< HEAD
+# Lokala inställningar (ska inte pushas till repo)
 src/main/resources/application.properties
-
-# Loggfiler
-logs/
-*.log
-=======
-``/src/main/resources/application.properties
-``/logs/
->>>>>>> refactor/main
